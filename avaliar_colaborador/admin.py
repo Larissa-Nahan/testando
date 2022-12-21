@@ -1,14 +1,34 @@
 from django.contrib import admin
 from .models import AvaliarColaborador
 
+from django.db import models
+from django.forms import CheckboxSelectMultiple
 
 class AvaliarColaboradorAdmin(admin.ModelAdmin):
-    list_display = ('usuario',)
-    search_fields = ('usuario',)
-    list_filter = ('usuario',)
-    fieldsets = (
-        (None, {'fields': ('usuario', )}),
-    )
+    list_display = ('usuario', 'data_avaliacao_usuario', 'avaliado')
+    ordering = ('-data_avaliacao_usuario',)
+    search_fields = (['usuario'])
+    list_filter = ('usuario', 'data_avaliacao_usuario')
+    readonly_fields = ["data_avaliacao_usuario"]
+
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': CheckboxSelectMultiple},
+    }
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = [
+            ('', {'fields': ['usuario', 'data_avaliacao_usuario', 'calculo']}),
+            ]
+        
+        if obj:
+            if obj.usuario.funcao == 'chefe':
+                fieldsets[0][1]['fields'].append('avaliacao_chefes')
+                fieldsets[0][1]['fields'].append('avaliacao_chefes')
+            else:
+                fieldsets[0][1]['fields'].append('avaliacao_colaboradores')
+                fieldsets[0][1]['fields'].append('avaliacao_colaboradores')
+            
+        return fieldsets
 
     def has_view_permission(self, request, obj=None):
         return True

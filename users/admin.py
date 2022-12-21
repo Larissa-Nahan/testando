@@ -1,12 +1,18 @@
 from django.contrib import admin
 from .models import CustomUser
+from avaliar_usuario.models import AvaliarUsuario
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 
+class AvaliarUsuarioInline(admin.TabularInline):
+    model = AvaliarUsuario
+    fields = ['liberar_avaliacao']
+    can_delete = False
 
 class UserAdminConfig(UserAdmin):
+    inlines = [AvaliarUsuarioInline,]
     list_display = ('usuario', 'cpf', 'funcao', 'diretoria', 'gerencia')
-    ordering = ('-data_admissao_usuario',)
+    ordering = ['usuario', '-data_admissao_usuario',]
     search_fields = ('usuario', 'email')
     list_filter = ('usuario', 'email', 'efetivo', 'inativo')
     readonly_fields = ["data_criacao_usuario"]
@@ -57,6 +63,7 @@ class UserAdminConfig(UserAdmin):
         js = ('//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
               '/static/admin/js/hide_attribute.js',
               '/static/admin/js/disable_on_inativo.js',
+              '/static/admin/js/aval_usuario.js',
               )
 
 

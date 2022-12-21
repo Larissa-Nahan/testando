@@ -1,7 +1,13 @@
 from django.contrib import admin
-from . import models
+from .models import Avaliacao, Criterio
 
-class AvaliacaoPermissions(admin.ModelAdmin):
+class AvaliacaoInline(admin.TabularInline):
+    model = Avaliacao
+
+class CriterioAdmin(admin.ModelAdmin):
+    inlines = [AvaliacaoInline,]
+    # list_display = ['avaliacao']
+
     def has_view_permission(self, request, obj=None):
         if request.user.funcao == 'admin':
             return True
@@ -26,6 +32,5 @@ class AvaliacaoPermissions(admin.ModelAdmin):
         else:
             return False
 
-
-admin.site.register(models.Categoria, AvaliacaoPermissions)
-admin.site.register(models.Avaliacao, AvaliacaoPermissions)
+admin.site.register(Criterio, CriterioAdmin)
+admin.site.register(Avaliacao)

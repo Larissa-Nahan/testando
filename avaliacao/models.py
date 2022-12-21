@@ -1,30 +1,38 @@
 from django.db import models
 from django import forms
+      
+class Criterio(models.Model):
+    criterio = models.CharField(max_length=50, unique=True)
+    definicao = models.TextField()
 
-class Categoria(models.Model):
-    nome_categoria = models.CharField(max_length=50, unique=True)
+    def __str__(self):
+        return self.criterio
 
-    def __str__(self) -> str:
-        return self.nome_categoria
+    def get_avaliacoes(self):
+        return self.avaliacao_set.all()
 
 class Avaliacao(models.Model):
-    avaliacao_otima = models.TextField()
-    avaliacao_boa = models.TextField()
-    avaliacao_regular = models.TextField()
-    avaliacao_insuficiente = models.TextField()
-    categoria_avaliacao = models.OneToOneField(Categoria, on_delete=models.DO_NOTHING)
+    VISIVEL = (
+        ('chefes', "Chefes"),
+        ('colaboradores', "Colaboradores"),
+        ('todos', "Todos"),
+    )
+    ESCALA = (
+        ('o', "Otimo"),
+        ('b', "Bom"),
+        ('r', "Ruim"),
+        ('i', "Insuficiente"),
+    )
+
+    avaliacao = models.TextField()
+    criterio_avaliacao = models.OneToOneField(Criterio, on_delete=models.CASCADE)
+    escala = models.CharField(max_length=20, choices=ESCALA)
+
+    # visivel = models.CharField(max_length=20, choices=VISIVEL)
 
     def __str__(self) -> str:
-        return f"Avaliação da {self.categoria_avaliacao}"
+        return f"Avaliação do {self.criterio_avaliacao.criterio}, escala: {self.escala}"
 
     class Meta:
         verbose_name = "Avaliação"
         verbose_name_plural = "Avaliações"
-
-    # class Meta:
-    #     widgets = {
-    #         'avaliacao_otima': forms.RadioSelect(),
-    #         'avaliacao_boa': forms.RadioSelect(),
-    #         'avaliacao_regular': forms.RadioSelect(),
-    #         'avaliacao_insuficiente': forms.RadioSelect(),
-    #     }

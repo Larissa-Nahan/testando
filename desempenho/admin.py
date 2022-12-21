@@ -2,8 +2,13 @@ from django.contrib import admin
 from . import models
 
 class DesempenhoPermissions(admin.ModelAdmin):
-    list_display = ('fator', 'tipo')
-    list_filter = ['tipo']
+    list_display = ['fator', 'visibilidade']
+    list_filter = ['visivel']
+
+    @admin.display(description='Visibilidade')
+    def visibilidade(self, obj):
+        visivel_para = obj.visivel.upper()
+        return f"Fator visível para {visivel_para}"
 
     def has_view_permission(self, request, obj=None):
         if request.user.funcao == 'admin':

@@ -1,26 +1,30 @@
 from django.db import models
 
-TIPO = (
-    ('chefe', "Chefe"),
-    ('colaborador', "Colaborador"),
+VISIVEL = (
+    ('chefes', "Chefes"),
+    ('colaboradores', "Colaboradores"),
+    ('todos', "Todos"),
 )
 
 class FatorDesempenhoMerito(models.Model):
     fator = models.TextField(blank=True, null=True)
-    tipo = models.CharField(max_length=20, choices=TIPO)
+    visivel = models.CharField(max_length=20, choices=VISIVEL)
 
     class Meta:
-        verbose_name = "Meritório"
-
+        verbose_name = "Fator Meritório"
+        verbose_name_plural = "Fatores Meritórios"
+    
     def __str__(self) -> str:
-        return self.fator
+        return f"Mérito {self.fator}"
+
 
 class FatorDesempenhoDemerito(models.Model):
     fator = models.TextField(null=True, blank=True)
-    tipo = models.CharField(max_length=20, choices=TIPO)
+    visivel = models.CharField(max_length=20, choices=VISIVEL)
 
     class Meta:
-        verbose_name = "Demeritório"
-
+        verbose_name = "Fator Demeritório"
+        verbose_name_plural = "Fatores Demeritórios"
+    
     def __str__(self) -> str:
-        return self.fator
+        return f"Demérito {self.fator}"

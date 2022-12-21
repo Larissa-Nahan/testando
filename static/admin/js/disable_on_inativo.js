@@ -2,8 +2,6 @@ django.jQuery = jQuery;
 
 inativo = false;
 
-
-console.log(inativo)
 django.jQuery(document).ready(function(){
     if (django.jQuery('#id_inativo').is(':checked')) {
         django.jQuery("#id_usuario").attr('disabled', true);
@@ -38,7 +36,6 @@ django.jQuery(document).ready(function(){
     }
     django.jQuery("#id_inativo").click(function(){
         inativo =! inativo;
-        console.log(inativo)
         if (inativo) {
             django.jQuery("#id_usuario").attr('disabled', true);
             django.jQuery("#id_cpf").attr('disabled', true);
