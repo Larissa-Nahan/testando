@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'smart_selects',
+    'django_cleanup.apps.CleanupConfig',
     'users',
     'desempenho',
     'avaliacao',

@@ -35,7 +35,6 @@ class Migration(migrations.Migration):
             name='Arquivo',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(blank=True, upload_to=avaliar_usuario.models.folder_upload)),
                 ('usuario', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='avaliar_usuario.avaliarusuario')),
             ],
         ),

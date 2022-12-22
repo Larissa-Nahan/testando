@@ -2,8 +2,15 @@ from django.db import models
 from django import forms
       
 class Criterio(models.Model):
+    VISIVEL = (
+        ('chefes', "Chefes"),
+        ('colaboradores', "Colaboradores"),
+        ('todos', "Todos"),
+    )
+
     criterio = models.CharField(max_length=50, unique=True)
     definicao = models.TextField()
+    visivel = models.CharField(max_length=20, choices=VISIVEL)
 
     def __str__(self):
         return self.criterio
@@ -12,11 +19,6 @@ class Criterio(models.Model):
         return self.avaliacao_set.all()
 
 class Avaliacao(models.Model):
-    VISIVEL = (
-        ('chefes', "Chefes"),
-        ('colaboradores', "Colaboradores"),
-        ('todos', "Todos"),
-    )
     ESCALA = (
         ('o', "Otimo"),
         ('b', "Bom"),
@@ -24,14 +26,12 @@ class Avaliacao(models.Model):
         ('i', "Insuficiente"),
     )
 
-    avaliacao = models.TextField()
-    criterio_avaliacao = models.OneToOneField(Criterio, on_delete=models.CASCADE)
+    avaliacao = models.TextField(null=False, blank=False)
+    criterio_avaliacao = models.ForeignKey(Criterio, on_delete=models.CASCADE)
     escala = models.CharField(max_length=20, choices=ESCALA)
 
-    # visivel = models.CharField(max_length=20, choices=VISIVEL)
-
-    def __str__(self) -> str:
-        return f"Avaliação do {self.criterio_avaliacao.criterio}, escala: {self.escala}"
+    def __str__(self):
+        return self.get_escala_display()
 
     class Meta:
         verbose_name = "Avaliação"

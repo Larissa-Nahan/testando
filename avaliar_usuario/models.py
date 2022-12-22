@@ -2,11 +2,11 @@ from django.db import models
 from desempenho.models import FatorDesempenhoMerito, FatorDesempenhoDemerito
 from users.models import CustomUser
 from django.db.models import Q
+import os
 
 def folder_upload(self, filename):
-    extension = filename.split(".")[-1]
     return (
-        f"arquivos/{self.usuario}/{self.file}.{extension}"
+        f"arquivos/{self.usuario}/{self.file}"
 )
 
 class AvaliarUsuario(models.Model):
@@ -25,7 +25,8 @@ class AvaliarUsuario(models.Model):
 
 class Arquivo(models.Model):
     usuario = models.ForeignKey(AvaliarUsuario, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=folder_upload, blank=True)
+    file = models.FileField(upload_to=folder_upload)
 
     def __str__(self) -> str:
-        return f"{self.file}"
+        basename, extension = os.path.splitext(os.path.basename(self.file.name)) 
+        return basename

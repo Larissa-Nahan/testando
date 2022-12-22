@@ -31,11 +31,9 @@ class AvaliarUsuarioAdmin(admin.ModelAdmin):
             if obj.usuario.funcao == 'chefe':
                 fieldsets[0][1]['fields'].append('meritos_chefes')
                 fieldsets[0][1]['fields'].append('demeritos_chefes')
-                fieldsets[0][1]['fields'].append('file')
             else:
                 fieldsets[0][1]['fields'].append('meritos_colaboradores')
                 fieldsets[0][1]['fields'].append('demeritos_colaboradores')
-                fieldsets[0][1]['fields'].append('file')
             
         return fieldsets
     

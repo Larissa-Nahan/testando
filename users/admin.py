@@ -64,6 +64,7 @@ class UserAdminConfig(UserAdmin):
               '/static/admin/js/hide_attribute.js',
               '/static/admin/js/disable_on_inativo.js',
               '/static/admin/js/aval_usuario.js',
+              '/static/admin/js/remove_delete.js',
               )
 
 
