@@ -11,6 +11,7 @@ class AvaliarColaborador(models.Model):
     calculo = models.FloatField(default=0.00)
     avaliacao_chefes = models.ManyToManyField(Avaliacao, blank=True, related_name='avaliacao_chefes')
     avaliacao_colaboradores = models.ManyToManyField(Avaliacao, blank=True, related_name='avaliacao_colaboradores')
+    criterio = models.ForeignKey(Criterio, on_delete=models.CASCADE, null=True, blank=True)
     data_avaliacao_colaborador = models.DateField(blank=True, null=True)
     liberar_avaliacao = models.BooleanField(default=False)
 

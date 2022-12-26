@@ -30,8 +30,10 @@ class Avaliacao(models.Model):
     criterio_avaliacao = models.ForeignKey(Criterio, on_delete=models.CASCADE)
     escala = models.CharField(max_length=20, choices=ESCALA)
 
-    def __str__(self):
-        return self.get_escala_display()
+    # def __str__(self):
+    #     return self.get_escala_display()
+    def __str__(self) -> str:
+        return f'{self.avaliacao} {self.criterio_avaliacao}'
 
     class Meta:
         verbose_name = "Avaliação"

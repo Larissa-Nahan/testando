@@ -21,12 +21,13 @@ class AvaliarColaboradorAdmin(admin.ModelAdmin):
         print(f"========================{obj.usuario}")
         fieldsets = [
             ('', {'fields': ['usuario', 'data_avaliacao_colaborador', 'calculo', 'criterio']}),
+            ('teste', {'fields': ['avaliacao_chefes',]}),
             ]
-        if obj:
-            if obj.usuario.funcao == 'chefe':
-                fieldsets[0][1]['fields'].append('avaliacao_chefes')
-            else:
-                fieldsets[0][1]['fields'].append('avaliacao_colaboradores')
+        # if obj:
+            # if obj.usuario.funcao == 'chefe':
+            #     fieldsets[0][1]['fields'].append('avaliacao_chefes')
+            # else:
+            #     fieldsets[0][1]['fields'].append('avaliacao_colaboradores')
             
         return fieldsets
 
@@ -61,6 +62,7 @@ class AvaliarColaboradorAdmin(admin.ModelAdmin):
         js = ('//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
               '/static/admin/js/hide_attribute.js',
               '/static/admin/js/disable_on_inativo.js',
+              '/static/admin/js/perguntas.js',
               )
 
 
