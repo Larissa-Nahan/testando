@@ -1,34 +1,40 @@
+from django.utils import timezone
 from django.contrib import admin
 from .models import AvaliarColaborador
-
+from avaliacao.models import Avaliacao, Criterio
 from django.db import models
 from django.forms import CheckboxSelectMultiple
 
 class AvaliarColaboradorAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'data_avaliacao_usuario', 'avaliado')
-    ordering = ('-data_avaliacao_usuario',)
-    search_fields = (['usuario'])
-    list_filter = ('usuario', 'data_avaliacao_usuario')
-    readonly_fields = ["data_avaliacao_usuario"]
+    model = AvaliarColaborador
+    list_display = ['usuario', 'data_avaliacao_colaborador', 'avaliado']
+    ordering = ['-data_avaliacao_colaborador',]
+    search_fields = ['usuario']
+    list_filter = ['usuario', 'data_avaliacao_colaborador']
+    readonly_fields = ["usuario", "data_avaliacao_colaborador"]
 
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
 
     def get_fieldsets(self, request, obj=None):
+        print(f"========================{obj.usuario}")
         fieldsets = [
-            ('', {'fields': ['usuario', 'data_avaliacao_usuario', 'calculo']}),
+            ('', {'fields': ['usuario', 'data_avaliacao_colaborador', 'calculo', 'criterio']}),
             ]
-        
         if obj:
             if obj.usuario.funcao == 'chefe':
                 fieldsets[0][1]['fields'].append('avaliacao_chefes')
-                fieldsets[0][1]['fields'].append('avaliacao_chefes')
             else:
-                fieldsets[0][1]['fields'].append('avaliacao_colaboradores')
                 fieldsets[0][1]['fields'].append('avaliacao_colaboradores')
             
         return fieldsets
+
+    def save_model(self, request, obj, form, change):
+        obj.avaliado = True
+        obj.data_avaliacao_colaborador = timezone.now()
+        super().save_model(request, obj, form, change)
+
 
     def has_view_permission(self, request, obj=None):
         return True

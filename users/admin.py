@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import CustomUser
 from avaliar_usuario.models import AvaliarUsuario
+from avaliar_colaborador.models import AvaliarColaborador
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 
@@ -9,8 +10,13 @@ class AvaliarUsuarioInline(admin.TabularInline):
     fields = ['liberar_avaliacao']
     can_delete = False
 
+class AvaliarColaboradorInline(admin.TabularInline):
+    model = AvaliarColaborador
+    fields = ['liberar_avaliacao']
+    can_delete = False
+
 class UserAdminConfig(UserAdmin):
-    inlines = [AvaliarUsuarioInline,]
+    inlines = [AvaliarUsuarioInline, AvaliarColaboradorInline]
     list_display = ('usuario', 'cpf', 'funcao', 'diretoria', 'gerencia')
     ordering = ['usuario', '-data_admissao_usuario',]
     search_fields = ('usuario', 'email')
