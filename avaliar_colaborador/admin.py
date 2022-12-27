@@ -21,7 +21,7 @@ class AvaliarColaboradorAdmin(admin.ModelAdmin):
         print(f"========================{obj.usuario}")
         fieldsets = [
             ('', {'fields': ['usuario', 'data_avaliacao_colaborador', 'calculo', 'criterio']}),
-            ('teste', {'fields': ['avaliacao_chefes',]}),
+            ('Critérios', {'fields': ['avaliacao_chefes',]}),
             ]
         # if obj:
             # if obj.usuario.funcao == 'chefe':

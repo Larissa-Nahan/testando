@@ -5,36 +5,49 @@ window.addEventListener('load', function () {
         
         var inicio = document.querySelector('#content-main').querySelector('#avaliarcolaborador_form').querySelector('.module');
         var campo_criterio = document.querySelector('.field-criterio');
-        var field = document.createElement('fieldset');
-        field.classList.add('module', 'aligned')
-        field.innerHTML = campo_criterio.innerHTML;
-        inicio.after(field)
+        var fieldsets = document.querySelectorAll('fieldset');
+        fieldsets[1].insertAdjacentHTML('afterbegin', campo_criterio.innerHTML);
+        inicio.after(fieldsets[1])
         
         campo_criterio.remove()
         document.querySelector('label[for="id_criterio"]').remove();
+        $('h2')[1].remove();
         
         $('div[data-model-ref="criterio"]').unwrap();
         $('div[data-model-ref="criterio"]').replaceWith( "<h2>" + $('div[data-model-ref="criterio"]').html() + "</h2>" );
         
         var dropdown_criterio = document.querySelector('#id_criterio');
         function onChange() {
-        for(var j = 0; j < document.querySelector('#id_avaliacao_chefes').childElementCount; j++){
-            // for(var i = 1; i < dropdown_criterio.length; i++){
-                var pergunta = document.querySelector('#id_avaliacao_chefes_'+[j]).nextSibling.nodeValue;
-                var criterio_pergunta = pergunta.split(' ').splice(-2).join(" ");
+            var showElement = function(el, display) {
+                el.style.display = display ? '' : 'none';
+            };
+
+            var pergunta = [];
+            var criterio_pergunta = [];
+            for(var j = 0; j < document.querySelector('#id_avaliacao_chefes').childElementCount; j++){
+                pergunta[j] = document.querySelector('#id_avaliacao_chefes_'+[j]).nextSibling.nodeValue;
+                criterio_pergunta[j] = pergunta[j].split(' ').splice(-2).join(" ");
+                showElement($('label[for=id_avaliacao_chefes_'+[j]+']')[0], false);
+            }
+
+              
+            
+            for(var j = 0; j < document.querySelector('#id_avaliacao_chefes').childElementCount; j++){
                 
-                    var text = dropdown_criterio.options[dropdown_criterio.selectedIndex].text;
-                    
-                    if(criterio_pergunta == text){
-                        console.log("as");
-                        
-                    }
+                var text = dropdown_criterio.options[dropdown_criterio.selectedIndex].text;
+                
+                if(criterio_pergunta[j] == text){
+                    // pergunta[j].setAttribute("hidden", false);
+                    showElement($('label[for=id_avaliacao_chefes_'+[j]+']')[0], true);
+                } else {
+                    showElement($('label[for=id_avaliacao_chefes_'+[j]+']')[0], false);
                 }
-                // console.log(lastWord);
-                
-                // if(dropdown_criterio.option == )
-                // console.log(str)
-                
+            }
+            // console.log(lastWord);
+            
+            // if(dropdown_criterio.option == )
+            // console.log(str)
+            
                 // console.log(j)
                 // document.querySelector(".id_criterio").selectedIndex = i+1;
             }
