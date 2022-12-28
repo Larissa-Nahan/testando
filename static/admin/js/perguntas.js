@@ -17,50 +17,39 @@ window.addEventListener('load', function () {
         $('div[data-model-ref="criterio"]').replaceWith( "<h2>" + $('div[data-model-ref="criterio"]').html() + "</h2>" );
         
         var dropdown_criterio = document.querySelector('#id_criterio');
+
+        var showElement = function(el, display) {
+            el.style.display = display ? '' : 'none';
+        };
+
+        var perguntas = [];
+        var topicos = [];
+        var criterios = [];
+        var input = [];
+        for(var j = 0; j < document.querySelector('#id_avaliacao_chefes').childElementCount; j++){
+            topicos[j] = $('label[for=id_avaliacao_chefes_'+[j]+']')[0]
+            criterios[j] = topicos[j].innerText.split(' ').splice(-2).join(" ");
+            perguntas[j] = topicos[j].innerText.split(" - ")
+            topicos[j].value = criterios[j]
+            input[j] = $('#id_avaliacao_chefes_'+[j])[0]
+            topicos[j].innerHTML = perguntas[j][1]
+            topicos[j].insertBefore(input[j], topicos[j].firstChild);
+            console.log(topicos[j].innerHTML)
+            showElement($('label[for=id_avaliacao_chefes_'+[j]+']')[0], false);
+        }
+
         function onChange() {
-            var showElement = function(el, display) {
-                el.style.display = display ? '' : 'none';
-            };
-
-            var pergunta = [];
-            var criterio_pergunta = [];
+            var text = dropdown_criterio.options[dropdown_criterio.selectedIndex].text;
             for(var j = 0; j < document.querySelector('#id_avaliacao_chefes').childElementCount; j++){
-                pergunta[j] = document.querySelector('#id_avaliacao_chefes_'+[j]).nextSibling.nodeValue;
-                criterio_pergunta[j] = pergunta[j].split(' ').splice(-2).join(" ");
-                showElement($('label[for=id_avaliacao_chefes_'+[j]+']')[0], false);
-            }
-
-              
-            
-            for(var j = 0; j < document.querySelector('#id_avaliacao_chefes').childElementCount; j++){
-                
-                var text = dropdown_criterio.options[dropdown_criterio.selectedIndex].text;
-                
-                if(criterio_pergunta[j] == text){
-                    // pergunta[j].setAttribute("hidden", false);
-                    showElement($('label[for=id_avaliacao_chefes_'+[j]+']')[0], true);
+                if(criterios[j] === text){
+                    showElement(topicos[j], true);
                 } else {
-                    showElement($('label[for=id_avaliacao_chefes_'+[j]+']')[0], false);
+                    showElement(topicos[j], false);
                 }
             }
-            // console.log(lastWord);
-            
-            // if(dropdown_criterio.option == )
-            // console.log(str)
-            
-                // console.log(j)
-                // document.querySelector(".id_criterio").selectedIndex = i+1;
-            }
-            dropdown_criterio.onchange = onChange;
-            onChange();
-        // }
-        
-        // if (document.querySelector('[name="_save"]')) {
-        //     var selects = document.querySelectorAll('.field-escala');
-        //     for(var i = 0; i < selects.length-1; i++){
-        //         document.querySelector("#id_avaliacao_set-"+i+"-escala").selectedIndex = i+1;
-        //     }
-        // }
+        }
+        dropdown_criterio.onchange = onChange;
+        onChange();
 
     })
 })

@@ -33,7 +33,7 @@ class Avaliacao(models.Model):
     # def __str__(self):
     #     return self.get_escala_display()
     def __str__(self) -> str:
-        return f'{self.escala} {self.avaliacao} {self.criterio_avaliacao}'
+        return f'{self.escala} - {self.avaliacao} - {self.criterio_avaliacao}'
 
     class Meta:
         verbose_name = "Avaliação"
