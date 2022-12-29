@@ -18,32 +18,41 @@ window.addEventListener('load', function () {
         $('div[data-model-ref="criterio"]').unwrap();
         $('div[data-model-ref="criterio"]').replaceWith( "<h2>" + $('div[data-model-ref="criterio"]').html() + "</h2>" );
         
+        
+        
         // cria os btn e add ids
-        const btn_seta_esquerda = document.createElement("button");
-        const btn_seta_direita = document.createElement("button");
+        const btn_seta_esquerda = document.createElement("input");
+        const btn_seta_direita = document.createElement("input");
         btn_seta_esquerda.setAttribute("id", "btn_seta_esquerda")
         btn_seta_direita.setAttribute("id", "btn_seta_direita")
+        btn_seta_esquerda.setAttribute("type", "button")
+        btn_seta_direita.setAttribute("type", "button")
+        btn_seta_esquerda.setAttribute("value", "esquerda")
+        btn_seta_direita.setAttribute("value", "direita")
+        // btn_seta_esquerda.setAttribute("onclick", change(this))
+        // btn_seta_direita.setAttribute("onclick", change(this))
         // cria as imagens e add a scr + tamanho
         const seta_esquerda = document.createElement("img");
         const seta_direita = document.createElement("img");
         seta_esquerda.src = "/static/admin/imgs/arrow_left.png" 
         seta_direita.src = "/static/admin/imgs/arrow_right.png"
         seta_esquerda.height = 25
-        seta_direita.height = 25
-
+        seta_direita.height = 25        
+        
         // coloca as imgs dentro dos btn e os insere ao lado do criterio no h2
         btn_seta_esquerda.appendChild(seta_esquerda)
         btn_seta_direita.appendChild(seta_direita)
         $("#id_criterio")[0].after(btn_seta_esquerda);
         btn_seta_esquerda.after(btn_seta_direita);
-
-        var dropdown_criterio = document.querySelector('#id_criterio');
-
+        
+        
+        
+        
         // funcao para exibir ou esconder as perguntas
         var showElement = function(el, display) {
             el.style.display = display ? '' : 'none';
         };
-
+        
         var perguntas = [];
         var topicos = [];
         var criterios = [];
@@ -57,6 +66,8 @@ window.addEventListener('load', function () {
             topicos[j].insertBefore(input[j], topicos[j].firstChild);  // insere o input (checkbox) no inicio das perguntas
             showElement($('label[for=id_avaliacao_chefes_'+[j]+']')[0], false);
         }
+        
+        var dropdown_criterio = document.querySelector('#id_criterio');
 
         // funcao para mudar as perguntas exibidas a partir da selecao do dropdown
         function onChange() {
@@ -71,6 +82,28 @@ window.addEventListener('load', function () {
         }
         dropdown_criterio.onchange = onChange;
         onChange();
-
+                        
+        
+        // funcao para mudar as perguntas exibidas a partir da selecao dos btns
+        function change(x) {
+            if (x.value === 'direita') {
+                dropdown_criterio.selectedIndex = dropdown_criterio.selectedIndex + 1
+                // pular a opcao -1 (vazio) e voltar para o inicio
+                if(dropdown_criterio.selectedIndex == -1){
+                    dropdown_criterio.selectedIndex = 0
+                }
+            } else {
+                dropdown_criterio.selectedIndex = dropdown_criterio.selectedIndex - 1
+                // pular a opcao -1 (vazio) e ir para o fim
+                if(dropdown_criterio.selectedIndex == -1){
+                    dropdown_criterio.selectedIndex = dropdown_criterio.length - 1
+                }
+            }
+            dropdown_criterio.onchange = onChange;
+            onChange()
+        };
+        btn_seta_esquerda.onclick = function() {change(this)};
+        btn_seta_direita.onclick = function() {change(this)};
+        
     })
 })
