@@ -6,6 +6,7 @@ django.jQuery(document).ready(function () {
         var liberar_avaliacao_colaborador = document.querySelector('#id_avaliarcolaborador-0-liberar_avaliacao');
         var btn_salvar = document.querySelector('[name="_save"]');
 
+        // ao clicar no btn de salvar, os checkboxws = true
         btn_salvar.onclick = function () {
             liberar_avaliacao_usuario.checked = true
             liberar_avaliacao_colaborador.checked = true

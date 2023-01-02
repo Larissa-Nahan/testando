@@ -2,6 +2,7 @@ django.jQuery = jQuery;
 
 inativo = false;
 
+// rever estrategia
 django.jQuery(document).ready(function(){
     if (django.jQuery('#id_inativo').is(':checked')) {
         django.jQuery("#id_usuario").attr('disabled', true);
