@@ -1,6 +1,6 @@
 from django.db import models
-from django import forms
-      
+
+# visibilidade dos criterios      
 class Criterio(models.Model):
     VISIVEL = (
         ('chefes', "Chefes"),
@@ -8,30 +8,33 @@ class Criterio(models.Model):
         ('todos', "Todos"),
     )
 
-    criterio = models.CharField(max_length=50, unique=True)
-    definicao = models.TextField()
-    visivel = models.CharField(max_length=20, choices=VISIVEL)
+    criterio = models.CharField('Critério', max_length=50, unique=True)
+    definicao = models.TextField('Definição')
+    visivel = models.CharField('Visibilidade', max_length=20, choices=VISIVEL)
 
     def __str__(self):
         return self.criterio
 
-    def get_avaliacoes(self):
-        return self.avaliacao_set.all()
+    # ?
+    # def get_avaliacoes(self):
+    #     return self.avaliacao_set.all()
+
+    class Meta:
+        verbose_name = "Critério"
 
 class Avaliacao(models.Model):
     ESCALA = (
-        ('o', "Otimo"),
+        ('o', "Ótimo"),
         ('b', "Bom"),
         ('r', "Ruim"),
         ('i', "Insuficiente"),
     )
 
-    avaliacao = models.TextField(null=False, blank=False)
-    criterio_avaliacao = models.ForeignKey(Criterio, on_delete=models.CASCADE)
+    avaliacao = models.TextField('Avaliação', null=False, blank=False, unique=True)
+    criterio_avaliacao = models.ForeignKey(Criterio, on_delete=models.CASCADE, verbose_name='Critério')
     escala = models.CharField(max_length=20, choices=ESCALA)
 
-    # def __str__(self):
-    #     return self.get_escala_display()
+    # usar dessa forma para poder fazer a exibicao dos dados necessarios na avaliacao
     def __str__(self) -> str:
         return f'{self.escala} - {self.avaliacao} - {self.criterio_avaliacao}'
 

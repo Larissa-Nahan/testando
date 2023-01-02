@@ -8,7 +8,7 @@ VISIVEL = (
 
 class FatorDesempenhoMerito(models.Model):
     fator = models.TextField(blank=True, null=True)
-    visivel = models.CharField(max_length=20, choices=VISIVEL)
+    visivel = models.CharField('Visibilidade', max_length=20, choices=VISIVEL)
 
     class Meta:
         verbose_name = "Fator Meritório"
@@ -20,7 +20,7 @@ class FatorDesempenhoMerito(models.Model):
 
 class FatorDesempenhoDemerito(models.Model):
     fator = models.TextField(null=True, blank=True)
-    visivel = models.CharField(max_length=20, choices=VISIVEL)
+    visivel = models.CharField('Visibilidade', max_length=20, choices=VISIVEL)
 
     class Meta:
         verbose_name = "Fator Demeritório"

@@ -5,6 +5,7 @@ class DesempenhoPermissions(admin.ModelAdmin):
     list_display = ['fator', 'visibilidade']
     list_filter = ['visivel']
 
+    # forma de display dos dados (sobrescreve como esta no models)
     @admin.display(description='Visibilidade')
     def visibilidade(self, obj):
         visivel_para = obj.visivel.upper()

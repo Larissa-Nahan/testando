@@ -8,7 +8,7 @@ class Diretoria(models.Model):
         return self.diretoria
 
 class Gerencia(models.Model):
-    gerencia = models.CharField(max_length=100, blank=False, null=False)
+    gerencia = models.CharField('Gerência', max_length=100, blank=False, null=False)
     diretoria = models.ForeignKey(Diretoria, on_delete=models.CASCADE)
    
     class Meta:

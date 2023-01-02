@@ -6,21 +6,23 @@ class AvaliacaoAdmin(admin.ModelAdmin):
     list_display = ['criterio', 'escala_avaliacao']
     search_fields = ['criterio_avaliacao__criterio']
 
+    # forma de display dos dados (sobrescreve como esta no models)
     @admin.display(description='Avaliacao')
     def criterio(self, obj):
         criterio = obj.criterio_avaliacao
-        return f"Avaliação do {criterio}"
+        return f"Avaliação do Critério {criterio}"
 
     @admin.display(description='Escala')
     def escala_avaliacao(self, obj):
         escala = obj.get_escala_display().upper()
         return f"{escala}"
 
+# exibir o conteudo da avaliacao na hora de cadastrar um criterio
 class AvaliacaoInline(admin.TabularInline):
     model = Avaliacao
-    extra = 4
-    max_num = 4
-    can_delete = False
+    extra = 4  # inicia com 4 campos (usa js para ja defini-los, mas podem ser mudados... - repensar)
+    max_num = 4  # limita a 4 campos [o, b, r, i]
+    can_delete = False  # nao funciona??? necessario usar js para conseguir impedir a delecao
 
 class CriterioAdmin(admin.ModelAdmin):
     inlines = [AvaliacaoInline,]
@@ -29,6 +31,7 @@ class CriterioAdmin(admin.ModelAdmin):
     list_filter = ['visivel']
     search_fields = ['criterio']
 
+    # forma de display dos dados (sobrescreve como esta no models)
     @admin.display(description='Visibilidade')
     def visibilidade(self, obj):
         visivel_para = obj.visivel.upper()
@@ -60,8 +63,8 @@ class CriterioAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
-              '/static/admin/js/remove_delete.js',
-              '/static/admin/js/set_escala.js',
+              '/static/admin/js/remove_delete.js',  # remove a capacidade de deletar os campos do inline
+              '/static/admin/js/set_escala.js',  # insere as escalas nos dropdowns [o, b, r, i]
               )
 
 admin.site.register(Criterio, CriterioAdmin)

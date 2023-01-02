@@ -4,10 +4,10 @@ from .models import AvaliarUsuario, Arquivo
 from django.db import models
 from django.forms import CheckboxSelectMultiple
 
+# exibir o campo de add um arquivo na hora de cadastrar uma avaliacao
 class ArquivoInline(admin.StackedInline):
     model = Arquivo
-    extra = 1
-
+    extra = 1   # add 1 campo a mais cada click de adicao (+)
 
 class AvaliarUsuarioAdmin(admin.ModelAdmin):
     inlines = [ArquivoInline]
@@ -18,6 +18,7 @@ class AvaliarUsuarioAdmin(admin.ModelAdmin):
     list_filter = ('usuario__usuario', 'data_avaliacao_usuario')
     readonly_fields = ['usuario', 'data_avaliacao_usuario']
 
+    # fazer os campos ManyToManyField serem exibidos como checkbox
     formfield_overrides = {
         models.ManyToManyField: {'widget': CheckboxSelectMultiple},
     }
@@ -28,6 +29,7 @@ class AvaliarUsuarioAdmin(admin.ModelAdmin):
             ]
         
         if obj:
+            # a partir do tipo do usuario selecionado, os campos sao exibidos
             if obj.usuario.funcao == 'chefe':
                 fieldsets[0][1]['fields'].append('meritos_chefes')
                 fieldsets[0][1]['fields'].append('demeritos_chefes')
@@ -37,6 +39,7 @@ class AvaliarUsuarioAdmin(admin.ModelAdmin):
             
         return fieldsets
     
+    # ao salvar a data de avaliacao eh definida de o status muda para avaliado
     def save_model(self, request, obj, form, change):
         obj.avaliado = True
         obj.data_avaliacao_usuario = timezone.now()
@@ -65,7 +68,7 @@ class AvaliarUsuarioAdmin(admin.ModelAdmin):
 
     class Media:
         js = ('//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
-              '/static/admin/js/calc_performance.js',
+              '/static/admin/js/calc_performance.js',  # calcula os meritos e demeritos
               )
 
 admin.site.register(AvaliarUsuario, AvaliarUsuarioAdmin)
