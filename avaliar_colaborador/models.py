@@ -1,8 +1,6 @@
-from django.utils import timezone
 from django.db import models
 from users.models import CustomUser
 from avaliacao.models import Avaliacao, Criterio
-from django.db.models import Q
 
 
 class AvaliarColaborador(models.Model):

@@ -27,8 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'smart_selects',
-    'django_cleanup.apps.CleanupConfig',
+    'smart_selects',    # pip install django-smart-selects
+    'django_cleanup.apps.CleanupConfig',    # pip install django-cleanup
     'users',
     'desempenho',
     'avaliacao',
