@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'diretoria_e_gerencia',
     'avaliar_usuario',
     'avaliar_colaborador',
+    'edital',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
