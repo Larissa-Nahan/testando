@@ -41,16 +41,19 @@ class AvaliarColaboradorAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     def has_view_permission(self, request, obj=None):
-        return True
-
-    def has_add_permission(self, request, obj=None):
         if request.user.funcao == 'admin' or request.user.funcao == 'recursos_humanos':
             return True
         else:
             return False
 
-    def has_change_permission(self, request, obj=None):
+    def has_add_permission(self, request, obj=None):
         if request.user.funcao == 'admin':
+            return True
+        else:
+            return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.funcao != 'recursos_humanos':
             return True
         else:
             return False

@@ -22,7 +22,7 @@ class AdicionarEditalAdmin(admin.ModelAdmin):
         return True
 
     def has_add_permission(self, request, obj=None):
-        if request.user.funcao == 'admin':
+        if request.user.funcao == 'admin' or request.user.funcao == 'recursos_humanos':
             return True
         else:
             return False
@@ -34,7 +34,7 @@ class AdicionarEditalAdmin(admin.ModelAdmin):
             return False
 
     def has_delete_permission(self, request, obj=None):
-        if request.user.funcao == 'admin':
+        if request.user.funcao == 'admin' or request.user.funcao == 'recursos_humanos':
             return True
         else:
             return False

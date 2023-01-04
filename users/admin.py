@@ -8,13 +8,15 @@ from django.contrib.auth.admin import UserAdmin
 # exibir o campo de avaliar usuario [checkbox] ao cadastrar um usuario
 class AvaliarUsuarioInline(admin.TabularInline):
     model = AvaliarUsuario
-    fields = ['liberar_avaliacao']
+    fields = ['liberar_avaliacao', 'avaliado']
+    readonly_fields = ['avaliado']
     can_delete = False  # nao funciona??? necessario usar js para conseguir impedir a delecao
 
 # exibir o campo de avaliar colaborador [checkbox] ao cadastrar um usuario
 class AvaliarColaboradorInline(admin.TabularInline):
     model = AvaliarColaborador
-    fields = ['liberar_avaliacao']
+    fields = ['liberar_avaliacao', 'avaliado']
+    readonly_fields = ['avaliado']
     can_delete = False  # nao funciona??? necessario usar js para conseguir impedir a delecao
 
 class UserAdminConfig(UserAdmin):
