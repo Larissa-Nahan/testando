@@ -9,13 +9,12 @@ class AdicionarEditalAdmin(admin.ModelAdmin):
                     'edital', 
                     'data_inicio', 
                     'data_termino',
-                    'andamento',
+                    # 'andamento',
                     )
     fields = ( 
             'edital',
             'data_inicio', 
             'data_termino',
-            'andamento',
             'arquivo',
             )
 

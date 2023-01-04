@@ -16,8 +16,8 @@ class AdicionarEdital(models.Model):
     arquivo = models.FileField(blank=True, null=True, upload_to=folder_upload)
 
     def save(self, *args, **kwargs):
-        print(f'data: ================================{self.data_termino}')
-        print(f'data: ================================{date.today()}')
+        # valida se o edital foi criado durante o periodo selecionado
+        # necessita mudar a estrategia para atualizar automaticamente apartir da data
         if (self.data_inicio <= date.today() and self.data_termino > date.today()):
             self.andamento = True
         super().save()
