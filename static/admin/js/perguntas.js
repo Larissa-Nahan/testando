@@ -15,8 +15,8 @@ window.addEventListener('load', function () {
         $('h2')[1].remove();
 
         // insere o campo no h2 titulo
-        $('div[data-model-ref="criterio"]').unwrap();
-        $('div[data-model-ref="criterio"]').replaceWith( "<h2>" + $('div[data-model-ref="criterio"]').html() + "</h2>" );
+        $('div[data-model-ref="Critério"]').unwrap();
+        $('div[data-model-ref="Critério"]').replaceWith( "<h2>" + $('div[data-model-ref="Critério"]').html() + "</h2>" );
         
         
         // cria as imagens e add a scr + tamanho + ids
