@@ -17,6 +17,30 @@ class AvaliacaoAdmin(admin.ModelAdmin):
         escala = obj.get_escala_display().upper()
         return f"{escala}"
 
+    def has_view_permission(self, request, obj=None):
+        if request.user.funcao == 'admin':
+            return True
+        else:
+            return False
+
+    def has_add_permission(self, request, obj=None):
+        if request.user.funcao == 'admin':
+            return True
+        else:
+            return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.funcao == 'admin':
+            return True
+        else:
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.funcao == 'admin':
+            return True
+        else:
+            return False
+
 # exibir o conteudo da avaliacao na hora de cadastrar um criterio
 class AvaliacaoInline(admin.TabularInline):
     model = Avaliacao
