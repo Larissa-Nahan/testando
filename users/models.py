@@ -81,7 +81,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     data_criacao_usuario = models.DateField('Data Criação Usuário', auto_now_add=True)
     data_admissao_usuario = models.DateField('Data Admissão Usuário', blank=True, null=True)
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)    # tem de ser true para poder acessar o admin
+    is_superuser = models.BooleanField(default=True)    # tem de ser true para poder acessar o admin
     inativo = models.BooleanField(default=False)
     efetivo = models.BooleanField(default=False)
 

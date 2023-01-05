@@ -39,7 +39,6 @@ class UserAdminConfig(UserAdmin):
             'classe',
             'setor',
             'cargo',
-
         )}),
     )
 
