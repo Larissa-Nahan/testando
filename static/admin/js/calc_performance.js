@@ -15,7 +15,7 @@ django.jQuery(document).ready(function () {
     var demeritos_total = demeritos.length;
     var meritos_empregado = 0;
     var demeritos_empregado = 0;
-    var fd = 0;
+    var fd = "0,00";
     
     // se ja houver algo cadastrado
     if (calculo && calculo.value != 0){
@@ -48,9 +48,13 @@ django.jQuery(document).ready(function () {
             fd = fd.toFixed(2)
 
             calculo.value = calculo.value.replace(calculo.value, fd)
+            // impedir de o calculo ficar abaixo de 0
+            if (calculo.value < 0){
+                calculo.value = "0,00"
+            }
         });
     }
-
+    
     // DEMERITOS
     for (var i = 0; i < demeritos.length; i++) {
         $(demeritos[i]).change(function () {
@@ -65,8 +69,12 @@ django.jQuery(document).ready(function () {
             // arredonda o valor + define 2 casas decimais
             fd = Math.round(fd * 100) / 100
             fd = fd.toFixed(2)
-
+            
             calculo.value = calculo.value.replace(calculo.value, fd)
+            // impedir de o calculo ficar abaixo de 0
+            if (calculo.value < 0){
+                calculo.value = "0,00"
+            }
         });
     }
 })
