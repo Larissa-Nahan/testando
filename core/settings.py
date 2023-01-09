@@ -21,6 +21,7 @@ USE_DJANGO_JQUERY = True
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',   # pip install -U django-jazzmin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
