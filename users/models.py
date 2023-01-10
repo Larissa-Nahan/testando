@@ -104,6 +104,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.usuario
+    
+    class Meta:
+        verbose_name='Usuário'
 
     # ?
     # def get_usuarios(self):

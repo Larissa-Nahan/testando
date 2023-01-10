@@ -128,9 +128,24 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Temas do Jazzmin
+# https://django-jazzmin.readthedocs.io/ui_customisation/
+# https://djangocentral.com/making-django-admin-jazzy-with-django-jazzmin/
+JAZZMIN_UI_TWEAKS = {
+    "theme": "flatly",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-dark",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-primary",
+    },
+}
 
 JAZZMIN_SETTINGS = {
-    # titulo do site na aba [por padrao eh current_admin_site.site_title]
+    # Titulo do site na aba [por padrao eh current_admin_site.site_title]
     "site_title": "Avaliação 360º",
 
     # Alt do logo login???
@@ -141,6 +156,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Codata",
 
     # Logo no menu lateral (tem de estar na pasta static)
+    # Retirar a classe .elevation-3 no html
     "site_logo": "/admin/imgs/logo-fundo-escuro.png",
 
     # Logo login (tem de estar na pasta static) [por padrao eh site_logo]
@@ -148,11 +164,11 @@ JAZZMIN_SETTINGS = {
     "login_logo": "/admin/imgs/logo-fundo-escuro.png",
 
     # Logo login tema escuto (tem de estar na pasta static) [por padrao eh site_logo]
-    # so deus sabe o pq ta havendo essa confusao entre o claro e escuro - investigar
+    # So deus sabe o pq ta havendo essa confusao entre o claro e escuro - investigar
     "login_logo_dark": "/admin/imgs/logo-fundo-claro.png",
 
     # CSS: classe para o logo no menu lateral classes that are applied to the logo above
-    "site_logo_classes": "img-circle",
+    "site_logo_classes": "",
 
     # Favicon (preferencia de tamanho 32x32 px) [por padrao eh site_logo]
     "site_icon": "/admin/imgs/favicon.png",
@@ -163,88 +179,84 @@ JAZZMIN_SETTINGS = {
     # Copyright no footer
     "copyright": "CODATA - Companhia de Processamento de Dados da Paraíba",
 
-    # List of model admins to search from the search bar, search bar omitted if excluded
-    # If you want to use a single search field you dont need to use a list, you can use a simple string 
-    "search_model": ["auth.User", "auth.Group"],
+    # Nao funciona??? 
+    "search_model": "",
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
-    "user_avatar": None,
+    # ???
+    "user_avatar": "None",
 
-    # ############
-    # # Top Menu #
-    # ############
+    ##########################
+    # Menu Superior (header) #
+    ##########################
 
-    # # Links to put along the top menu
-    # "topmenu_links": [
+    # Links ao lado do menu superior
+    "topmenu_links": [
 
-    #     # Url that gets reversed (Permissions can be added)
-    #     {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        # Link para a Home page
+        # (, "permissions": ["auth.view_user"]) nao se aplica?
+        {"name": "Home",  "url": "admin:index"},
 
-    #     # external url that opens in a new window (Permissions can be added)
-    #     {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+        # Link para um model
+        {"model": "users.CustomUser"},
 
-    #     # model admin to link to (Permissions checked against model)
-    #     {"model": "auth.User"},
+        # Link para uma pagina fora
+        # Abre uma nova pag
+        {"name": "CODATA", "url": "https://codata.pb.gov.br/", "new_window": True},
+    ],
 
-    #     # App with dropdown menu to all its models pages (Permissions checked against models)
-    #     {"app": "books"},
-    # ],
+    ###################
+    # Menu do Usuario #
+    ###################
 
-    # #############
-    # # User Menu #
-    # #############
+    # Links no menu do usuario
+    "usermenu_links": [
+        {"name": "Site da CODATA", "url": "https://codata.pb.gov.br/", "new_window": True},
+        {"model": "users.CustomUser"},
+    ],
 
-    # # Additional links to include in the user menu on the top right ("app" url type is not allowed)
-    # "usermenu_links": [
-    #     {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
-    #     {"model": "auth.user"}
-    # ],
+    ################
+    # Menu Lateral #
+    ################
 
-    # #############
-    # # Side Menu #
-    # #############
+    # Exibir o menu lateral
+    "show_sidebar": True,
 
-    # # Whether to display the side menu
-    # "show_sidebar": True,
+    # Exibir submenus ja abertos
+    # Com false ele cria um dropdown
+    "navigation_expanded": False,
 
-    # # Whether to aut expand the menu
-    # "navigation_expanded": True,
+    # Hide these apps when generating side menu e.g (auth)
+    # ????
+    "hide_apps": [],
 
-    # # Hide these apps when generating side menu e.g (auth)
-    # "hide_apps": [],
+    # Hide these models when generating side menu (e.g auth.user)
+    # ????
+    "hide_models": [],
 
-    # # Hide these models when generating side menu (e.g auth.user)
-    # "hide_models": [],
+    # Ordem dos elementos exibidos no menu lateral
+    "order_with_respect_to": ["users", "edital",],
 
-    # # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
-    # "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
+    # Icones no menu lateral
+    # https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
+    "icons": {
+        "users.CustomUser": "fas fa-users",
+        "edital.AdicionarEdital": "fas fa-file",
+        "avaliar_usuario.AvaliarUsuario": "fas fa-list",
+        "avaliar_colaborador.AvaliarColaborador": "fas fa-list",
+        "desempenho.FatorDesempenhoMerito": "fas fa-plus",
+        "desempenho.FatorDesempenhoDemerito": "fas fa-minus",
+    },
+    # Icones default
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
 
-    # # Custom links to append to app groups, keyed on app name
-    # "custom_links": {
-    #     "books": [{
-    #         "name": "Make Messages", 
-    #         "url": "make_messages", 
-    #         "icon": "fas fa-comments",
-    #         "permissions": ["books.view_book"]
-    #     }]
-    # },
-
-    # # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
-    # # for the full list of 5.13.0 free icon classes
-    # "icons": {
-    #     "auth": "fas fa-users-cog",
-    #     "auth.user": "fas fa-user",
-    #     "auth.Group": "fas fa-users",
-    # },
-    # # Icons that are used when one is not manually specified
-    # "default_icon_parents": "fas fa-chevron-circle-right",
-    # "default_icon_children": "fas fa-circle",
-
-    # #################
-    # # Related Modal #
-    # #################
-    # # Use modals instead of popups
-    # "related_modal_active": False,
+    #################
+    # Related Modal #
+    #################
+    # Use modals instead of popups
+    # ????
+    "related_modal_active": False,
 
     # #############
     # # UI Tweaks #
@@ -257,16 +269,15 @@ JAZZMIN_SETTINGS = {
     # # Whether to show the UI customizer on the sidebar
     # "show_ui_builder": False,
 
-    # ###############
-    # # Change view #
-    # ###############
-    # # Render out the change view as a single form, or in tabs, current options are
-    # # - single
-    # # - horizontal_tabs (default)
-    # # - vertical_tabs
-    # # - collapsible
-    # # - carousel
-    # "changeform_format": "horizontal_tabs",
-    # # override change forms on a per modeladmin basis
-    # "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    ###############
+    # Visualizacao #
+    ###############
+    # Opcoes:
+    # - single
+    # - horizontal_tabs (default)
+    # - vertical_tabs
+    # - collapsible
+    # - carousel
+    "changeform_format_overrides": {"users.CustomUser": "vertical_tabs", 
+                                    "avaliacao.Criterio": "collapsible",},
 }
