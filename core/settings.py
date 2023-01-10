@@ -203,6 +203,9 @@ JAZZMIN_SETTINGS = {
         # Link para uma pagina fora
         # Abre uma nova pag
         {"name": "CODATA", "url": "https://codata.pb.gov.br/", "new_window": True},
+        
+        # Cria um dropdown
+        {"app": "desempenho"},
     ],
 
     ###################
