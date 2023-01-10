@@ -130,35 +130,38 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 JAZZMIN_SETTINGS = {
-    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    # titulo do site na aba [por padrao eh current_admin_site.site_title]
     "site_title": "Avaliação 360º",
 
-    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Avaliação 360º",
+    # Alt do logo login???
+    "site_header": "Logo da Avaliação 360º",
 
-    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    # Titulo ao lado da logo no menu lateral (19 chars max) [por padrao eh current_admin_site.site_header]
+    # Nao pode ser vazio pois causa problemas no design - mudar no css/html depois
     "site_brand": "Codata",
 
-    # Logo to use for your site, must be present in static files, used for brand on top left
+    # Logo no menu lateral (tem de estar na pasta static)
     "site_logo": "/admin/imgs/logo-fundo-escuro.png",
 
-    # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
+    # Logo login (tem de estar na pasta static) [por padrao eh site_logo]
+    # OBS: add style="max-width: 500px; width: 100%;" na tag img no /jazzmin/templates/registration/base.html
     "login_logo": "/admin/imgs/logo-fundo-escuro.png",
 
-    # Logo to use for login form in dark themes (defaults to login_logo)
+    # Logo login tema escuto (tem de estar na pasta static) [por padrao eh site_logo]
+    # so deus sabe o pq ta havendo essa confusao entre o claro e escuro - investigar
     "login_logo_dark": "/admin/imgs/logo-fundo-claro.png",
 
-    # CSS classes that are applied to the logo above
-    "site_logo_classes": "",
+    # CSS: classe para o logo no menu lateral classes that are applied to the logo above
+    "site_logo_classes": "img-circle",
 
-    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
+    # Favicon (preferencia de tamanho 32x32 px) [por padrao eh site_logo]
     "site_icon": "/admin/imgs/favicon.png",
 
-    # Welcome text on the login screen
+    # Mensagem de bem vindo na pag de login
     "welcome_sign": "",
 
-    # Copyright on the footer
-    "copyright": "Acme Library Ltd",
+    # Copyright no footer
+    "copyright": "CODATA - Companhia de Processamento de Dados da Paraíba",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string 
